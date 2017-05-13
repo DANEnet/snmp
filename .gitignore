@@ -1,0 +1,7 @@
+temps*
+*.png
+*password*
+readings*
+*.pyc
+nohup*
+*.backup

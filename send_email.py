@@ -11,10 +11,10 @@ and http://mail.python.org/pipermail/python-list/2003-September/225540.html
 
 
 import os, sys, datetime
-import get_config
+from . import get_config
 import smtplib
 import mimetypes
-import gmail_password
+from . import gmail_password
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
@@ -54,9 +54,9 @@ def getAttachment(attachmentFilePath):
 
 
 def sendMail(subject, text, attachmentFilePaths):
-  print ("starting sendmail subject: ",subject)
-  print ("\ttext: ", text)
-  print ("\tAttachmentFilePaths:",attachmentFilePaths)
+  print(("starting sendmail subject: ",subject))
+  print(("\ttext: ", text))
+  print(("\tAttachmentFilePaths:",attachmentFilePaths))
   config = get_config.config
   gmailUser = 'from_server@danenet.org'
   recipient = get_config.config["recipient"]
@@ -96,7 +96,7 @@ def sendMail(subject, text, attachmentFilePaths):
     mailServer.sendmail(gmailUser, recipient, msg.as_string())
   except: 
     err = sys.exc_info()[0]
-    print('Failure in sending email to %s \n %s' % (recipient, err))
+    print(('Failure in sending email to %s \n %s' % (recipient, err)))
   mailServer.close()
   
 

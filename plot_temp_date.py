@@ -28,14 +28,14 @@ def plotdata(dates, readings_f, infilename, outfilename):
     
   #end of test on reading file
 
-  print("in plotdata length readings_f: ", len(readings_f))
-  print("in plotdata length      dates: ", len(dates))
+  print(("in plotdata length readings_f: ", len(readings_f)))
+  print(("in plotdata length      dates: ", len(dates)))
 
   if len(readings_f) < 2: return  
 
   plt.plot_date(x=dates, y=readings_f, fmt="r-")
   plt.xticks(rotation=22)
-  print("plottitle",dates[0], dates[-1])
+  print(("plottitle",dates[0], dates[-1]))
   plt.title("Time vs Temp "+ get_config.config["serverLocation"] + "\nCovers "+
             dates[0].strftime("%Y-%m-%d %H:%M:%S ")+" to "+
             dates[-1].strftime("%Y-%m-%d %H:%M:%S"))
@@ -58,16 +58,16 @@ if __name__ == "__main__":
     readings_f.append(80+i*pow(-1,i))
     time.sleep( 2)
   plotdata(dates, readings_f, outfilename)
-  print("made_data 1",readings_f)
+  print(("made_data 1",readings_f))
   readings_f= readings_f[0:0]
   dates = dates[0:0]
 
-  print("clear data",readings_f)
+  print(("clear data",readings_f))
   for i in range(6):
       dates.append(datetime.datetime.today())
       readings_f.append(90+i*pow(-1,i))
       time.sleep( 2)
-  print("made_data 2",readings_f)
+  print(("made_data 2",readings_f))
   plotdata(dates, readings_f, outfilename)
-  print("after second plot",readings_f)
+  print(("after second plot",readings_f))
   
