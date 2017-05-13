@@ -1,0 +1,436 @@
+Technalogix DEFINITIONS ::= BEGIN
+    IMPORTS
+    OBJECT-TYPE, MODULE-IDENTITY, enterprises,
+    Integer32
+        FROM SNMPv2-SMI
+    OBJECT-GROUP
+        FROM SNMPv2-CONF;
+
+    technalogixMIB MODULE-IDENTITY
+        LAST-UPDATED        "200909150952Z"
+        ORGANIZATION        "Technalogix Ltd"
+        CONTACT-INFO        "www.Technalogix.ca"
+        DESCRIPTION         ""
+
+        REVISION            "200909150952Z"
+        DESCRIPTION         "initial version of this module"
+        REVISION            "200909151144Z"
+        DESCRIPTION         "1"
+        REVISION            "200909151145Z"
+        DESCRIPTION         "1"
+        REVISION            "200909151454Z"
+        DESCRIPTION         "1"
+        ::= { technalogix 1 }
+
+
+    technalogix OBJECT IDENTIFIER ::= { enterprises 33702 }
+
+    technalogixMIBConformance OBJECT IDENTIFIER ::= { technalogixMIB 1 }
+
+    technalogixMIBGroups OBJECT IDENTIFIER ::= { technalogixMIBConformance 1 }
+
+    technalogixAllObjects OBJECT-GROUP
+        OBJECTS {           
+                        voltage,
+                        temperature,
+                        current48,
+                        carrierOn,
+                        carrierUp,
+                        carrierDown,
+                        softReset,
+                        vSWRFlag,
+                        overDrive,
+                        temperatureFlag,
+                        remotePortFWDOut,
+                        remotePortRFLOut,
+                        reflectedLevel,
+                        forwardlevel,
+			deviation,
+                        rightlevel,
+                        leftlevel,
+                        serialNumber,
+			model,
+			vSWRTripPointDec,
+			sNMPErrorFlag,
+                        frequency,
+			preemphasis,
+			aGCSetPoint,
+			analogdigital,
+			digitalinput,
+			analoginput,
+			leftattenuation,
+			rightattenuation,
+			mpxattenuation,
+			sca1attenuation,
+			sca2attenuation,
+                  }
+        STATUS              current
+        DESCRIPTION         "This automatically created object group contains
+                            all those objects that do not belong to any other
+                            OBJECT-GROUP"
+        ::= { technalogixMIBGroups 1 }
+
+    technalogixRegids OBJECT IDENTIFIER ::= { technalogix 2 }
+
+    technalogixCommon OBJECT IDENTIFIER ::= { technalogix 3 }
+
+    technalogixProducts OBJECT IDENTIFIER ::= { technalogix 4 }
+
+    transmitter OBJECT IDENTIFIER ::= { technalogixProducts 1 }
+
+    fmtransmitter OBJECT IDENTIFIER ::= { technalogixProducts 2 }
+
+    setup          OBJECT IDENTIFIER ::=  { technalogix 2 }
+
+    voltage OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Voltage Reading (0-+48V)"
+        ::= { fmtransmitter 1 }
+
+    temperature OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Temperature in C"
+        ::= { fmtransmitter 2 }
+
+    currentTotal OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Current on high voltage bus"
+        ::= { fmtransmitter 3 }
+
+
+    currentPA1 OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Current on high voltage bus"
+        ::= { fmtransmitter 4 }
+
+
+    currentPA2 OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Current on high voltage bus"
+        ::= { fmtransmitter 5 }
+
+    currentFAN OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Current on high voltage bus"
+        ::= { fmtransmitter 6 }
+
+
+    remotePort OBJECT IDENTIFIER ::= { fmtransmitter 7 }
+
+    carrierOn OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "Carrier on"
+        ::= { remotePort 1 }
+
+
+    carrierUp OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          write-only
+        STATUS              current
+        DESCRIPTION         "Increase AGC set point"
+        ::= { remotePort 2 }
+
+    carrierDown OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          write-only
+        STATUS              current
+        DESCRIPTION         "Decrease AGC set point"
+        ::= { remotePort 3 }
+
+    reset OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          write-only
+        STATUS              current
+        DESCRIPTION         "Reset microcontroller"
+        ::= { remotePort 4 }
+
+
+
+    vSWRFlag OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "High VSWR error flag"
+        ::= { remotePort 5 }
+
+    overDrive OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Overdrive error flag"
+        ::= { remotePort 6 }
+
+    temperatureFlag OBJECT-TYPE
+        SYNTAX              INTEGER {
+                                off( 0 ),
+                                on( 1 )
+                            }
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "High temperature error flag"
+        ::= { remotePort 7 }
+
+    reflectedLevel OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Reflected power level"
+        ::= { fmtransmitter 8 }
+
+    forwardlevel OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIfmPTION         "Forward power level"
+        ::= { fmtransmitter 9 }
+
+    deviation OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIfmPTION         "Deviationlevel"
+        ::= { fmtransmitter 10 }
+
+    leftlevel OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIfmPTION         "left level"
+        ::= { fmtransmitter 11 }
+
+    rightlevel OBJECT-TYPE
+        SYNTAX              Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIfmPTION         "Right level"
+        ::= { fmtransmitter 12 }
+
+    serialNumber OBJECT-TYPE
+        SYNTAX              DisplayString (SIZE (0..7))
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Serial Number"
+        ::= { fmtransmitter 13 }
+
+    model OBJECT-TYPE
+        SYNTAX              DisplayString (SIZE (0..7))
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Model Number"
+        ::= { fmtransmitter 14 }
+    
+    vSWRTripPointDec OBJECT-TYPE
+        SYNTAX              INTEGER 
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "VSWR trippoint  1.1 to 1.8 Decimal place only"
+        ::= { fmtransmitter 15 }
+
+    sNMPErrorFlag OBJECT-TYPE
+        SYNTAX    	    Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Error flag"
+        ::= { fmtransmitter 16 }
+
+    frequency OBJECT-TYPE
+        SYNTAX    	    Integer32
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "Carrier Frequency  875 - 1080"
+        ::= { fmtransmitter 17 }	   	
+
+    preemphasis OBJECT-TYPE
+        SYNTAX    	    Integer32
+        MAX-ACCESS          read-only
+        STATUS              current
+        DESCRIPTION         "Pre-emphasis 0,25,50,75us"
+        ::= { fmtransmitter 18 }
+ 
+  	
+    aGCSetPoint OBJECT-TYPE
+        SYNTAX    	    Integer32
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 100% full scale"
+        ::= { fmtransmitter 20 }	
+
+    analogdigital OBJECT-TYPE
+        SYNTAX    	     INTEGER {
+                                Analog( 1 ),
+                                Digital( 2 ),
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "Analog or Digital Input"
+        ::= { fmtransmitter 21 }	
+
+    digitalinput OBJECT-TYPE
+        SYNTAX    	    INTEGER {
+                                AES( 1 ),
+                                SPDIF( 2 ),
+				TOSLINK( 3 )
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "Digital Input selection"
+        ::= { fmtransmitter 22 }
+
+     analoginput OBJECT-TYPE
+        SYNTAX    	    INTEGER {
+                                MONO( 1 ),
+                                STEREO( 2 ),
+				MPX( 3 )
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "Analog Input selection"
+        ::= { fmtransmitter 23 }
+
+    leftattenuation OBJECT-TYPE
+        SYNTAX    	    Integer32{
+                                0 - 255
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 255"
+        ::= { fmtransmitter 24 }	
+
+    rightattenuation OBJECT-TYPE
+        SYNTAX    	    Integer32{
+                                0 - 255
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 255"
+        ::= { fmtransmitter 25 }	
+
+    mpxattenuation OBJECT-TYPE
+        SYNTAX    	    Integer32{
+                                0 - 255
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 255"
+        ::= { fmtransmitter 26 }	
+
+    sca1attenuation OBJECT-TYPE
+        SYNTAX    	    Integer32{
+                                0 - 255
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 255"
+        ::= { fmtransmitter 27 }	
+
+    sca2attenuation OBJECT-TYPE
+        SYNTAX    	    Integer32{
+                                0 - 255
+                            }
+        MAX-ACCESS          read-write
+        STATUS              current
+        DESCRIPTION         "0 - 255"
+        ::= { fmtransmitter 28 }	
+
+
+traps OBJECT-TYPE
+    SYNTAX SEQUENCE OF TrapEntry
+    ACCESS not-accessible
+    STATUS mandatory
+    DESCRIPTION
+        "Trap table"
+    ::= { setup 1 }  
+
+trapEntry OBJECT-TYPE
+    SYNTAX TrapEntry
+    ACCESS not-accessible
+    STATUS mandatory
+    DESCRIPTION
+        "Single trap entry containing trap receiver info."
+    INDEX { trapReceiverNumber }
+     ::= { traps 1 }
+     
+trapEntry ::=
+    SEQUENCE {
+        trapReceiverNumber
+            INTEGER,
+        trapEnabled
+            INTEGER,
+        trapReceiverIPAddress
+            IpAddress,
+        trapCommunity
+            DisplayString
+    }            
+    
+trapReceiverNumber  OBJECT-TYPE
+    SYNTAX INTEGER (0.. 4)
+    ACCESS not-accessible
+    STATUS mandatory
+    DESCRIPTION
+        "Index of trap receiver"
+    ::= { trapEntry 1 }
+    
+trapEnabled OBJECT-TYPE
+    SYNTAX INTEGER { Yes(1), No(0) }
+    ACCESS read-write
+    STATUS mandatory
+    DESCRIPTION
+        "Indicates if this trap entry is enabled or not."
+    ::= { trapEntry 2 }
+
+
+trapReceiverIPAddress OBJECT-TYPE
+    SYNTAX  IpAddress
+    ACCESS  read-write
+    STATUS mandatory
+    DESCRIPTION
+        "Trap receiver IP address"
+    ::= { trapEntry 3 }
+
+trapCommunity OBJECT-TYPE
+    SYNTAX  DisplayString (SIZE (0..7))
+    ACCESS  read-write
+    STATUS mandatory
+    DESCRIPTION
+        "Trap community to be used by agent to send trap"
+    ::= { trapEntry 4 }
+
+
+
+    technalogixExperimental OBJECT IDENTIFIER ::= { technalogix 5 }
+
+
+END
+
